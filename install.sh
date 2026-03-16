@@ -1,35 +1,44 @@
 #!/usr/bin/env bash
 # ============================================================
 # SDE Plugin Installer
-# Symlinks all skill files to ~/.claude/skills/
+# Installs 28 slash commands via ~/.claude/commands/ symlinks
+# (Claude Code user-level commands — no plugin namespace needed)
 # ============================================================
 set -euo pipefail
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILLS_TARGET="$HOME/.claude/skills"
-SDE_HOME="$HOME/.sde-plugin"
+COMMANDS_DIR="$HOME/.claude/commands"
 
 echo "╔══════════════════════════════════════════╗"
-echo "║  SDE Plugin Installer v1.2               ║"
-echo "║  20 Skills · 7 Agents · 5 Context Files  ║"
+echo "║  SDE Plugin Installer v2.1               ║"
+echo "║  28 Commands · ~/.claude/commands/        ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 
 # ── Step 1: Verify plugin directory ──────────────────────────────────────────
-if [ ! -d "$PLUGIN_DIR/skills" ]; then
-  echo "ERROR: skills/ directory not found in $PLUGIN_DIR"
+if [ ! -d "$PLUGIN_DIR/commands" ]; then
+  echo "ERROR: commands/ directory not found in $PLUGIN_DIR"
   exit 1
 fi
 
-# ── Step 2: Create ~/.sde-plugin symlink (agents, context, references) ───────
-if [ -L "$SDE_HOME" ]; then
-  rm "$SDE_HOME"
-fi
-ln -s "$PLUGIN_DIR" "$SDE_HOME"
-echo "✓ Plugin home: $SDE_HOME → $PLUGIN_DIR"
+# ── Step 2: Create ~/.claude/commands/ and symlink all sde commands ──────────
+mkdir -p "$COMMANDS_DIR"
+
+LINKED=0
+for cmd_file in "$PLUGIN_DIR/commands"/sde*.md; do
+  cmd_name="$(basename "$cmd_file")"
+  target="$COMMANDS_DIR/$cmd_name"
+  if [ -L "$target" ]; then
+    rm "$target"
+  fi
+  ln -sf "$cmd_file" "$target"
+  LINKED=$((LINKED + 1))
+done
+
+echo "✓ Symlinked $LINKED commands → $COMMANDS_DIR/"
 echo ""
 
-# ── Step 3: Create ~/.sde-plugin/learnings/ (for adaptive learning) ──────────
+# ── Step 3: Initialize learnings store ────────────────────────────────────────
 mkdir -p "$HOME/.sde-plugin-data/learnings"
 if [ ! -f "$HOME/.sde-plugin-data/learnings/user-preferences.json" ]; then
   echo '{}' > "$HOME/.sde-plugin-data/learnings/user-preferences.json"
@@ -39,70 +48,31 @@ if [ ! -f "$HOME/.sde-plugin-data/learnings/user-preferences.json" ]; then
   echo "✓ Learnings store initialized: ~/.sde-plugin-data/learnings/"
 fi
 
-# ── Step 4: Symlink skills to ~/.claude/skills/ ───────────────────────────────
-mkdir -p "$SKILLS_TARGET"
-echo "Installing skills to $SKILLS_TARGET ..."
+# ── Step 4: Clean up old skills symlinks if they exist ───────────────────────
+if ls "$HOME/.claude/skills/sde"*.md 2>/dev/null | grep -q .; then
+  rm -f "$HOME/.claude/skills/sde"*.md
+  echo "✓ Removed old skills/ symlinks"
+fi
+
+# ── Step 5: Verify ────────────────────────────────────────────────────────────
 echo ""
-
-INSTALLED=0
-UPDATED=0
-
-for skill_file in "$PLUGIN_DIR/skills"/*.md; do
-  [ -f "$skill_file" ] || continue
-  skill_name=$(basename "$skill_file")
-  target="$SKILLS_TARGET/$skill_name"
-
-  if [ -L "$target" ]; then
-    rm "$target"
-    ln -s "$skill_file" "$target"
-    echo "  ↻ Updated: $skill_name"
-    UPDATED=$((UPDATED + 1))
-  elif [ -f "$target" ]; then
-    echo "  ⚠ Skipped: $skill_name (non-symlink file exists — remove manually)"
-  else
-    ln -s "$skill_file" "$target"
-    echo "  ✓ Installed: $skill_name"
-    INSTALLED=$((INSTALLED + 1))
-  fi
-done
-
-TOTAL=$((INSTALLED + UPDATED))
-echo ""
+COMMAND_COUNT=$(ls "$COMMANDS_DIR"/sde*.md 2>/dev/null | wc -l | tr -d ' ')
 echo "────────────────────────────────────────────"
-printf "  Skills:     %s new, %s updated → %s active\n" "$INSTALLED" "$UPDATED" "$TOTAL"
+printf "  Commands:   %s symlinks in ~/.claude/commands/\n" "$COMMAND_COUNT"
 printf "  Agents:     %s files\n" "$(ls "$PLUGIN_DIR/agents"/*.md 2>/dev/null | wc -l | tr -d ' ')"
 printf "  Context:    %s files\n" "$(ls "$PLUGIN_DIR/context"/*.md 2>/dev/null | wc -l | tr -d ' ')"
 printf "  References: %s files\n" "$(ls "$PLUGIN_DIR/references"/*.md 2>/dev/null | wc -l | tr -d ' ')"
 echo "────────────────────────────────────────────"
 echo ""
 
-# ── Step 5: Verify expected skills ────────────────────────────────────────────
-EXPECTED_SKILLS=(
-  "sde.md" "sde-config.md" "sde-idea.md" "sde-prd.md"
-  "sde-architect.md" "sde-stack.md" "sde-datamodel.md" "sde-api.md"
-  "sde-scaffold.md" "sde-implement.md" "sde-test.md" "sde-secure.md"
-  "sde-optimize.md" "sde-devops.md" "sde-prod.md" "sde-iterate.md"
-  "sde-vc.md" "sde-analyze.md" "sde-learn.md" "sde-sde5.md"
-)
-
-MISSING=0
-for skill in "${EXPECTED_SKILLS[@]}"; do
-  if [ ! -L "$SKILLS_TARGET/$skill" ]; then
-    echo "  ⚠ Missing: $skill"
-    MISSING=$((MISSING + 1))
-  fi
-done
-[ $MISSING -gt 0 ] && echo "" && echo "WARNING: $MISSING skills missing." && echo ""
-
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo "╔════════════════════════════════════════════════════╗"
 echo "║  Installation Complete!                            ║"
 echo "╠════════════════════════════════════════════════════╣"
 echo "║                                                    ║"
-echo "║  Plugin structure:                                 ║"
-echo "║    ~/.claude/skills/    ← 20 skill symlinks        ║"
-echo "║    ~/.sde-plugin/       ← agents, context, refs    ║"
-echo "║    ~/.sde-plugin-data/  ← learnings store          ║"
+echo "║  Commands installed to: ~/.claude/commands/        ║"
+echo "║  Plugin source:  ~/Documents/sde-plugin/           ║"
+echo "║  Learnings:      ~/.sde-plugin-data/               ║"
 echo "║                                                    ║"
 echo "║  Required Environment Variables:                   ║"
 echo "║    export NOTION_TOKEN='secret_...'                ║"
@@ -112,20 +82,13 @@ echo "║    export SENTRY_DSN='https://...'                 ║"
 echo "║    export GRAFANA_CLOUD_PUSH_URL='...'             ║"
 echo "║    export GRAFANA_CLOUD_API_KEY='...'              ║"
 echo "║                                                    ║"
-echo "║  Add to ~/.zshrc:                                  ║"
-echo "║    source ~/.zshrc  (or restart terminal)          ║"
-echo "║                                                    ║"
 echo "╠════════════════════════════════════════════════════╣"
 echo "║  Next Steps:                                       ║"
-echo "║  1. Set all environment variables above            ║"
-echo "║  2. Open Claude Code in any project directory      ║"
+echo "║  1. Restart Claude Code to load commands           ║"
+echo "║  2. Set all environment variables above            ║"
 echo "║  3. Run: /sde-config   → one-time setup            ║"
 echo "║  4. Run: /sde-idea     → start a new project       ║"
-echo "║  5. Follow the 13-phase lifecycle                  ║"
 echo "║                                                    ║"
 echo "║  For existing codebases:                           ║"
 echo "║     Run: /sde-analyze                              ║"
-echo "║                                                    ║"
-echo "║  View your learning profile:                       ║"
-echo "║     Run: /sde-learn                                ║"
 echo "╚════════════════════════════════════════════════════╝"

@@ -1,0 +1,9 @@
+{
+  "name": "sde-plugin",
+  "version": "1.0.0",
+  "description": "Full-lifecycle SDE plugin: 13-phase software engineering from idea to production. Covers architecture, scaffolding, testing, security, CI/CD, and continuous improvement.",
+  "author": {
+    "name": "Mahendhar"
+  },
+  "keywords": ["sde", "engineering", "full-lifecycle", "nestjs", "react", "typescript", "devops"]
+}
