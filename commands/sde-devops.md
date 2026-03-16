@@ -8,7 +8,7 @@ description: Phase 11 — DevOps & Deployment. Generates production-ready Docker
 
 1. Read `.sde/context.json` — project type, slug, stack deviations
 2. Read `.sde/phases/3-stack.md` — exact packages used
-3. Templates are in `~/.claude/skills/../templates/` (from SDE Plugin install dir)
+3. Templates are in `~/Documents/sde-plugin/templates/` (from SDE Plugin install dir)
 
 ---
 

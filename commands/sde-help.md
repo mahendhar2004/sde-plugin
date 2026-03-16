@@ -90,7 +90,7 @@ Output exactly this:
   GRAFANA_CLOUD_API_KEY   Grafana Cloud API key
 
 ── PLUGIN FILES ──────────────────────────────────────────────────────
-  Skills:     ~/.claude/skills/          (28 skill files)
+  Commands:   ~/.claude/commands/         (29 command files)
   Agents:     ~/.sde-plugin/agents/      (10 specialized agents)
   Context:    ~/.sde-plugin/context/     (7 standards files)
   References: ~/.sde-plugin/references/  (4 pattern files)
