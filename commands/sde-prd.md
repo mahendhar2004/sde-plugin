@@ -2,6 +2,25 @@
 description: Phase 1 — Product Requirements Document. Generates a complete PRD with user personas, feature prioritization, NFRs, user stories, acceptance criteria, and success metrics. Syncs to Notion.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/0-idea.md` exist?
+
+If EITHER is missing → STOP immediately and output:
+```
+⛔ Phase 0 not complete.
+
+Run /sde-idea first to initialize the project.
+If you already ran it, make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If both exist → read them and continue.
+
+---
+
 # SDE PRD — Phase 1: Product Requirements Document
 
 ## Pre-Flight

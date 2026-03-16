@@ -2,6 +2,21 @@
 description: Phase 9 — Security Hardening. Audits against all OWASP Top 10 categories, fixes every issue found autonomously, and generates a comprehensive security report.
 ---
 
+## ⚠️ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+
+If it is missing → output this warning and continue in standalone mode:
+```
+⚠️ No .sde/context.json found. Running in standalone mode — will analyze current directory without project context.
+```
+Do NOT stop — proceed with the security audit against the current directory.
+
+If it exists → read it and use it to inform the audit.
+
+---
+
 # SDE Secure — Phase 9: Security Hardening
 
 ## Pre-Flight

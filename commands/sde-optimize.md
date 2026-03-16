@@ -2,6 +2,21 @@
 description: Phase 10 — Performance Optimization. Fixes N+1 queries, adds Redis caching, optimizes frontend bundle, adds database indexes, and applies all performance best practices.
 ---
 
+## ⚠️ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+
+If it is missing → output this warning and continue in standalone mode:
+```
+⚠️ No .sde/context.json found. Running in standalone mode — will analyze current directory without project context.
+```
+Do NOT stop — proceed with the performance audit against the current directory.
+
+If it exists → read it and use it to inform the optimization work.
+
+---
+
 # SDE Optimize — Phase 10: Performance Optimization
 
 ## Pre-Flight

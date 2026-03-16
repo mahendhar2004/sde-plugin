@@ -2,6 +2,24 @@
 description: Phase 5 — API Design. Designs all REST endpoints organized by resource, defines request/response schemas, auth requirements, rate limits, pagination strategy, and generates a complete OpenAPI 3.0 YAML spec.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/2-architecture.md` exist?
+
+If EITHER is missing → STOP immediately and output:
+```
+⛔ Run /sde-architect before running /sde-api.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If both exist → read them and continue.
+
+---
+
 # SDE API — Phase 5: API Design
 
 ## Pre-Flight

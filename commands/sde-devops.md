@@ -2,6 +2,32 @@
 description: Phase 11 — DevOps & Deployment. Generates production-ready Dockerfiles, GitHub Actions CI/CD workflows, k3s manifests, AWS setup guide, Grafana Cloud config, and Sentry integration.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does EITHER `.sde/phases/6-scaffold.md` exist OR does a `src/` directory exist in the current directory?
+
+If `.sde/context.json` is missing → STOP immediately and output:
+```
+⛔ Run /sde-scaffold before running /sde-devops.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If `.sde/context.json` exists but NEITHER `.sde/phases/6-scaffold.md` NOR `src/` is present → STOP and output:
+```
+⛔ Run /sde-scaffold before running /sde-devops.
+
+No scaffold output detected. Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If `.sde/context.json` exists AND either `.sde/phases/6-scaffold.md` or `src/` is present → read context.json and continue.
+
+---
+
 # SDE DevOps — Phase 11: DevOps & Deployment
 
 ## Pre-Flight

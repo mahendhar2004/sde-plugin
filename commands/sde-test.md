@@ -2,6 +2,23 @@
 description: Phase 8 — Testing. Generates comprehensive unit tests, integration tests, and frontend component tests targeting 80% coverage. Runs coverage reports and generates additional tests for uncovered code.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+
+If it is missing → STOP immediately and output:
+```
+⛔ No .sde/context.json found. Run /sde-idea first or run /sde-analyze on an existing codebase.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If it exists → read it and continue.
+
+---
+
 # SDE Test — Phase 8: Testing
 
 ## Pre-Flight

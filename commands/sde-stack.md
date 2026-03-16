@@ -2,6 +2,25 @@
 description: Phase 3 — Tech Stack Decision. Finalizes tech stack based on PRD requirements, generates complete package lists with versions, and creates ADRs for any deviations from defaults.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/1-prd.md` exist?
+3. Does `.sde/phases/2-architecture.md` exist?
+
+If ANY of these are missing → STOP immediately and output:
+```
+⛔ Run /sde-idea → /sde-prd → /sde-architect before running /sde-stack.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If all three exist → read them and continue.
+
+---
+
 # SDE Stack — Phase 3: Tech Stack Decision
 
 ## Pre-Flight

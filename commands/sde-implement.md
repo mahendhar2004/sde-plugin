@@ -2,6 +2,24 @@
 description: Phase 7 — Implementation. Generates all NestJS modules, React components and pages, Expo mobile screens, and admin dashboard — one complete working feature at a time, following SOLID and Clean Architecture principles.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does the `.sde/phases/` directory exist and contain at least `0-idea.md`?
+
+If `.sde/context.json` is missing OR the `.sde/phases/` directory does not exist or is empty → STOP immediately and output:
+```
+⛔ Run /sde-scaffold before running /sde-implement.
+
+Make sure you're in the correct project directory and have run the prior phases.
+```
+Do NOT proceed past this point.
+
+If both conditions are met → read ALL phase files in `.sde/phases/` and continue.
+
+---
+
 # SDE Implement — Phase 7: Full Implementation
 
 ## Pre-Flight

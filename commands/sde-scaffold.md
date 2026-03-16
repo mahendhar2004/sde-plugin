@@ -2,6 +2,24 @@
 description: Phase 6 — Project Scaffold. Creates the complete directory structure and writes all boilerplate files with working code — NestJS backend, React frontend, Expo mobile (if needed), and root config files.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/3-stack.md` exist?
+
+If EITHER is missing → STOP immediately and output:
+```
+⛔ Run /sde-stack before running /sde-scaffold.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If both exist → read them and continue.
+
+---
+
 # SDE Scaffold — Phase 6: Project Structure
 
 ## Pre-Flight

@@ -2,6 +2,25 @@
 description: Phase 2 — System Architecture. Designs complete system architecture with component diagrams, data flow, auth flow, caching strategy, observability plan, and creates Architecture Decision Records.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/0-idea.md` exist?
+3. Does `.sde/phases/1-prd.md` exist?
+
+If ANY of these are missing → STOP immediately and output:
+```
+⛔ Run /sde-idea then /sde-prd before running /sde-architect.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If all three exist → read them and continue.
+
+---
+
 # SDE Architect — Phase 2: System Architecture
 
 ## Pre-Flight

@@ -2,6 +2,25 @@
 description: Phase 4 — Data Model Design. Analyzes PRD features to design normalized ER schema, generates TypeORM entities with full decorators, produces SQL DDL, and defines all indexes and relationships.
 ---
 
+## ⛔ Phase Guard — Read This First
+
+Before doing ANYTHING else, check:
+1. Does `.sde/context.json` exist in the current directory?
+2. Does `.sde/phases/2-architecture.md` exist?
+3. Does `.sde/phases/3-stack.md` exist? (recommended, but 2-architecture.md is the minimum)
+
+If `.sde/context.json` OR `.sde/phases/2-architecture.md` are missing → STOP immediately and output:
+```
+⛔ Run /sde-architect and /sde-stack before running /sde-datamodel.
+
+Make sure you're in the correct project directory.
+```
+Do NOT proceed past this point.
+
+If both required files exist → read context.json, 2-architecture.md, and 3-stack.md (if present) and continue.
+
+---
+
 # SDE Data Model — Phase 4: Data Model Design
 
 ## Pre-Flight
