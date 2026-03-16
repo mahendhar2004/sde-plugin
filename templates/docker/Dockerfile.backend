@@ -1,0 +1,53 @@
+# ================================================
+# Stage 1: Builder
+# ================================================
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install dumb-init for proper PID 1 signal handling
+RUN apk add --no-cache dumb-init
+
+# Install all dependencies (including devDependencies for build)
+COPY package*.json ./
+RUN npm ci
+
+# Copy source and build TypeScript
+COPY . .
+RUN npm run build
+
+# Install production-only deps in a separate location for final stage
+RUN npm ci --only=production && cp -R node_modules /tmp/prod_node_modules
+
+# ================================================
+# Stage 2: Production
+# ================================================
+FROM node:20-alpine-slim AS production
+
+WORKDIR /app
+
+# Security: create non-root user
+RUN apk add --no-cache dumb-init && \
+    addgroup -g 1001 -S nodejs && \
+    adduser -S nestjs -u 1001
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Copy only what's needed from builder
+COPY --from=builder --chown=nestjs:nodejs /tmp/prod_node_modules ./node_modules
+COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nestjs:nodejs /usr/bin/dumb-init /usr/bin/dumb-init
+
+# Switch to non-root user
+USER nestjs
+
+EXPOSE 3000
+
+# Health check — used by Docker Compose and orchestrators
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
+
+# Use dumb-init as PID 1 for proper signal handling (graceful shutdown)
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "dist/main"]

@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: app
+  labels:
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP  # Internal only — accessed via ingress
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: app
+  labels:
+    app: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  # For k3s with Traefik: use ClusterIP + IngressRoute
+  # For direct LoadBalancer (cloud): change to LoadBalancer
+  type: ClusterIP
+
+---
+# Optional: Redis service (if running Redis in k3s)
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: app
+spec:
+  selector:
+    app: redis
+  ports:
+    - name: redis
+      protocol: TCP
+      port: 6379
+      targetPort: 6379
+  type: ClusterIP

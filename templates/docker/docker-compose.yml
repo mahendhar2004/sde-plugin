@@ -1,0 +1,98 @@
+version: '3.9'
+
+# ============================================================
+# Local Development Docker Compose
+# ============================================================
+# Usage:
+#   docker-compose up -d          → start all services
+#   docker-compose logs -f        → follow logs
+#   docker-compose down           → stop all services
+#   docker-compose down -v        → stop and remove volumes
+# ============================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ${PROJECT_NAME:-app}-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-appdb}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ${PROJECT_NAME:-app}-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: builder         # Use builder stage for hot-reload in dev
+    container_name: ${PROJECT_NAME:-app}-backend
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./backend/src:/app/src:delegated   # Hot-reload source mounting
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: npm run start:dev
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: builder         # Use builder stage for Vite dev server
+    container_name: ${PROJECT_NAME:-app}-frontend
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./frontend/src:/app/src:delegated  # Hot-reload source mounting
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+    command: npm run dev -- --host 0.0.0.0
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
