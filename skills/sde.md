@@ -152,6 +152,8 @@ Every project managed by SDE Plugin gets:
 | `/sde-iterate` | 13 | Continuous improvement: refactor, coverage, perf |
 | `/sde-vc` | — | Smart git: commits, branches, PRs, releases |
 | `/sde-analyze` | — | Existing codebase analysis + improvement plan |
+| `/sde-learn` | — | Adaptive learning: capture project learnings, personalization dashboard |
+| `/sde-sde5` | — | SDE-5 protocol reference: quality checklists, ADR templates, failure modes |
 
 ---
 
@@ -291,3 +293,47 @@ If any autonomous action fails (API call, git command, etc.):
 - Continue with remaining actions
 - Report failures in the Phase Gate summary box
 - Never block phase completion due to integration failures (save locally always)
+
+---
+
+## SDE-5 Operating Standard (Non-Negotiable)
+
+Every agent and every phase in this plugin operates at **Staff Engineer (SDE-5) level**. This means:
+
+1. **System Thinking** — Every decision is made with awareness of the full system, not just the local component
+2. **Failure Mode Analysis** — Every service explicitly handles: DB down, Redis down, external API timeout, invalid input at scale
+3. **Operational Excellence** — Logs are useful at 3am. Errors have full context. Health checks reflect actual system state.
+4. **Blast Radius Awareness** — Every security decision minimizes worst-case exposure
+5. **Code Reviewability** — Every function is immediately understandable. Max 25 lines. Descriptive names. JSDoc on public methods.
+6. **Performance at Scale** — Every design holds at 10x current load without rewrite
+7. **Long-Term Strategy** — Every significant decision has an ADR with a "revisit when" trigger
+8. **Developer Experience** — `git clone → docker-compose up` should work in < 5 minutes
+
+See `/sde-sde5` for the complete SDE-5 protocol specification.
+
+---
+
+## Adaptive Learning System
+
+This plugin gets smarter with every project you build.
+
+After each project completion, run `/sde-learn capture` to save:
+- Stack decisions and outcomes
+- Architecture patterns chosen
+- Recurring issues found and fixed
+- Your personal preferences (inferred from refinements)
+
+Before each new project, the plugin loads your history and auto-applies your patterns.
+
+Run `/sde-learn` to view your full learning profile and personalization dashboard.
+
+See `/sde-learn` for the complete learning system specification.
+
+---
+
+## Additional Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `/sde-sde5` | View full SDE-5 protocol and quality checklists |
+| `/sde-learn` | View/edit learning profile, capture project learnings |
