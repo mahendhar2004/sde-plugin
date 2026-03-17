@@ -1,5 +1,7 @@
 ---
 description: Quick ship — runs tests → security check → code review → commit → push → create PR in a single command. Use after finishing a feature to ship it properly.
+allowed-tools: Agent, Bash, Read
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Ship It

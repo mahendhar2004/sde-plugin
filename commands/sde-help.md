@@ -1,5 +1,7 @@
 ---
 description: Command reference — shows all 28 SDE Plugin skills organized by category with descriptions and usage examples
+allowed-tools: Read
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Command Reference

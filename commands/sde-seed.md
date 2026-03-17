@@ -1,5 +1,7 @@
 ---
 description: Database seed data generation — creates realistic seed scripts for development, testing, and demo environments using TypeScript with NestJS CommandRunner
+allowed-tools: Agent, Read, Write, Bash
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Database Seed Generator

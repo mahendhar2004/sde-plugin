@@ -1,5 +1,7 @@
 ---
 description: One-time setup skill — verifies all environment variables, configures GitHub and Notion integrations, creates plugin config file, and validates the full toolchain.
+allowed-tools: Read, Write, Bash, Agent
+disable-model-invocation: true
 ---
 
 # SDE Config — One-Time Setup

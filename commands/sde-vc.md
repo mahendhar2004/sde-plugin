@@ -1,5 +1,7 @@
 ---
 description: Version Control Agent — handles smart git commits, branch creation, PR creation with GitHub API, release management, and sync operations. Invoked by describing what you need (e.g., "commit changes", "create PR", "new release").
+allowed-tools: Bash, Read
+disable-model-invocation: true
 ---
 
 # SDE VC — Version Control Agent

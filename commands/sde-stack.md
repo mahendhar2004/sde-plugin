@@ -1,6 +1,11 @@
 ---
 description: Phase 3 — Tech Stack Decision. Finalizes tech stack based on PRD requirements, generates complete package lists with versions, and creates ADRs for any deviations from defaults.
+allowed-tools: Agent, Read, Write
+disable-model-invocation: true
 ---
+
+## Live Project Context
+!`cat .sde/context.json 2>/dev/null || echo '{"status": "no-project"}'`
 
 ## ⛔ Phase Guard — Read This First
 

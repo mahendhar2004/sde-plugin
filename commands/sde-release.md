@@ -1,5 +1,7 @@
 ---
 description: Release management — semantic versioning, CHANGELOG generation, GitHub release creation, version bumps across all package.json files, and production deployment trigger
+allowed-tools: Bash, Read, Write
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Release Management

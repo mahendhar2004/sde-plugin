@@ -1,5 +1,7 @@
 ---
 description: Pre-merge code review — audits changed code for architecture violations, security issues, performance anti-patterns, test coverage gaps, and code quality before any PR merges
+allowed-tools: Agent, Read, Grep, Glob
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Code Review

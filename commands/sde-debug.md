@@ -1,6 +1,8 @@
 ---
 description: Systematic debugging — takes any error, stack trace, or failing test and applies structured root cause analysis to diagnose, fix, add a regression test, and commit
 argument-hint: "[symptom or error description]"
+allowed-tools: Agent, Read, Grep, Bash
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Systematic Debugger

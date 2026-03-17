@@ -1,5 +1,7 @@
 ---
 description: SDE-5 (Staff/Principal Engineer) mental model — loaded by all SDE plugin agents to elevate every decision to Staff Engineer quality
+allowed-tools: Read
+disable-model-invocation: true
 ---
 
 # SDE-5 Agent Protocol — Staff/Principal Engineer Operating Standards

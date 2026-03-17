@@ -1,5 +1,7 @@
 ---
 description: Emergency production fix — fast-track workflow from bug detection to hotfix deployed, tagged, and merged back to all branches in under 30 minutes
+allowed-tools: Agent, Bash, Read, Write
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Hotfix: Emergency Production Fix

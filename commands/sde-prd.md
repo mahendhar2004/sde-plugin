@@ -1,6 +1,11 @@
 ---
 description: Phase 1 — Product Requirements Document. Generates a complete PRD with user personas, feature prioritization, NFRs, user stories, acceptance criteria, and success metrics. Syncs to Notion.
+allowed-tools: Agent, Read
+disable-model-invocation: true
 ---
+
+## Live Project Context
+!`cat .sde/context.json 2>/dev/null || echo '{"status": "no-project"}'`
 
 ## ⛔ Phase Guard — Read This First
 

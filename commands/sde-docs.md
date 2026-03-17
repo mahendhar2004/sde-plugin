@@ -1,5 +1,7 @@
 ---
 description: Documentation generation — writes JSDoc for all public methods, updates README, generates docs/ architecture guide, syncs API docs to Notion, and produces a developer onboarding guide
+allowed-tools: Agent, Read, Write
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Documentation Generator

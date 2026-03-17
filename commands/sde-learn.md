@@ -1,5 +1,7 @@
 ---
 description: SDE Plugin adaptive learning system — tracks decisions across all projects, improves recommendations over time, personalizes the plugin to your patterns
+allowed-tools: Read, Write
+disable-model-invocation: true
 ---
 
 # SDE Plugin — Adaptive Learning System

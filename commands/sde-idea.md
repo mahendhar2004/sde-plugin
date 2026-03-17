@@ -1,6 +1,8 @@
 ---
 description: Phase 0 — Idea Understanding. Analyzes raw product idea, detects project type, creates GitHub repo, initializes .sde/ project state, and syncs to Notion.
 argument-hint: "[your idea description]"
+allowed-tools: Read, Write, Bash, Agent
+disable-model-invocation: true
 ---
 
 # SDE Idea — Phase 0: Idea Understanding
