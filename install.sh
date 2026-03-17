@@ -10,8 +10,8 @@ PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMMANDS_DIR="$HOME/.claude/commands"
 
 echo "╔══════════════════════════════════════════╗"
-echo "║  SDE Plugin Installer v2.1               ║"
-echo "║  28 Commands · ~/.claude/commands/        ║"
+echo "║  SDE Plugin Installer v2.2               ║"
+echo "║  30 Commands · ~/.claude/commands/        ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 
@@ -48,13 +48,21 @@ if [ ! -f "$HOME/.sde-plugin-data/learnings/user-preferences.json" ]; then
   echo "✓ Learnings store initialized: ~/.sde-plugin-data/learnings/"
 fi
 
-# ── Step 4: Clean up old skills symlinks if they exist ───────────────────────
+# ── Step 4: Create ~/.sde-plugin symlink (agents reference this path) ────────
+if [ -L "$HOME/.sde-plugin" ]; then
+  rm "$HOME/.sde-plugin"
+fi
+ln -sf "$PLUGIN_DIR" "$HOME/.sde-plugin"
+echo "✓ Symlinked ~/.sde-plugin → $PLUGIN_DIR"
+echo ""
+
+# ── Step 5: Clean up old skills symlinks if they exist ───────────────────────
 if ls "$HOME/.claude/skills/sde"*.md 2>/dev/null | grep -q .; then
   rm -f "$HOME/.claude/skills/sde"*.md
   echo "✓ Removed old skills/ symlinks"
 fi
 
-# ── Step 5: Verify ────────────────────────────────────────────────────────────
+# ── Step 6: Verify ────────────────────────────────────────────────────────────
 echo ""
 COMMAND_COUNT=$(ls "$COMMANDS_DIR"/sde*.md 2>/dev/null | wc -l | tr -d ' ')
 echo "────────────────────────────────────────────"
