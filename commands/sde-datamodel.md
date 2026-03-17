@@ -21,6 +21,58 @@ If both required files exist → read context.json, 2-architecture.md, and 3-sta
 
 ---
 
+## Agent Invocation
+
+First check .sde/context.json to determine the backend type.
+
+**If backend is Supabase:** Use the **Agent tool** to spawn:
+
+### Supabase Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/supabase-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/supabase-standards.md
+- ~/.sde-plugin/references/supabase-patterns.md
+
+Your task: Design the complete Supabase database schema for this project.
+
+Project context: Read .sde/context.json, .sde/phases/0-idea.md, .sde/phases/2-architecture.md.
+
+Produce:
+1. Complete SQL schema with all tables, columns, types, constraints
+2. RLS policies for every table (all 4 operations)
+3. Indexes for all FK columns and common query patterns
+4. updated_at trigger for all tables
+5. handle_new_user trigger if profiles table exists
+6. Save as supabase/migrations/[timestamp]_initial_schema.sql
+7. Update .sde/schemas/database.sql with final schema
+```
+
+**If backend is NestJS/Express:** Use the **Agent tool** to spawn:
+
+### Backend Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/backend-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/database-standards.md
+- ~/.sde-plugin/references/nestjs-patterns.md
+
+Your task: Design the complete TypeORM data model for this project.
+
+Project context: Read .sde/context.json, .sde/phases/0-idea.md, .sde/phases/2-architecture.md.
+
+Produce:
+1. TypeORM entities for all domain objects (extending BaseEntity)
+2. Proper relationships (@ManyToOne, @OneToMany, @ManyToMany)
+3. Indexes on all FK columns and query columns
+4. Migration file for the initial schema
+5. Update .sde/schemas/database.sql with final SQL DDL
+```
+
+---
+
 # SDE Data Model — Phase 4: Data Model Design
 
 ## Pre-Flight

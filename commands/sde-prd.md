@@ -21,6 +21,31 @@ If both exist → read them and continue.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn one agent:
+
+### PM Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/pm-agent.md for your full identity and standards.
+
+Your task: Write a complete Product Requirements Document for this project.
+
+Project context: Read .sde/context.json and .sde/phases/0-idea.md for project details.
+
+Follow the full PRD structure defined in your identity file. Cover:
+- Problem statement and personas
+- User stories with BDD acceptance criteria (Given/When/Then)
+- MVP vs future features (MoSCoW)
+- Non-functional requirements (performance, security, scale)
+- Success metrics (SMART)
+
+Save the PRD to .sde/phases/1-prd.md when complete.
+```
+
+---
+
 # SDE PRD — Phase 1: Product Requirements Document
 
 ## Pre-Flight

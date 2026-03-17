@@ -17,6 +17,43 @@ If it exists → read it and use it to inform the audit.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn one agent:
+
+### Security Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/security-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/security-rules.md
+
+Your task: Perform a complete OWASP Top 10 security audit and fix all issues.
+
+Project context: Read .sde/context.json. Scan the entire codebase.
+
+Audit and fix:
+1. A01 Broken Access Control — ownership checks, role enforcement
+2. A02 Cryptographic Failures — secrets in code, weak hashing
+3. A03 Injection — SQL injection, XSS, command injection
+4. A04 Insecure Design — missing rate limiting, no input validation
+5. A05 Security Misconfiguration — CORS, Helmet, exposed endpoints
+6. A06 Vulnerable Components — outdated packages with CVEs
+7. A07 Auth Failures — JWT handling, refresh token rotation
+8. A08 Data Integrity — unsigned data, unsafe deserialization
+9. A09 Logging Failures — sensitive data in logs
+10. A10 SSRF — unvalidated external URLs
+
+For Supabase projects also check:
+- RLS enabled on all user-data tables
+- No service role key in client code
+- getUser() used instead of getSession() for identity
+
+Produce: security audit report + fix all issues found.
+```
+
+---
+
 # SDE Secure — Phase 9: Security Hardening
 
 ## Pre-Flight

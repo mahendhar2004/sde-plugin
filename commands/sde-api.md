@@ -20,6 +20,51 @@ If both exist → read them and continue.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn these two agents **in parallel** (single message, two Agent tool calls):
+
+### Backend Agent — API Design
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/backend-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/api-standards.md
+- ~/.sde-plugin/context/database-standards.md
+- ~/.sde-plugin/references/nestjs-patterns.md
+
+Your task: Design and document all REST API endpoints for this project.
+
+Project context: Read .sde/context.json, .sde/phases/1-prd.md, .sde/phases/2-architecture.md.
+
+Produce:
+1. Complete OpenAPI 3.0 YAML specification
+2. All endpoints with: method, path, auth requirement, request body schema, response schema, error responses
+3. DTOs for every request/response
+4. Follow the response envelope from api-standards.md: { data, message, statusCode, meta }
+5. Save to .sde/schemas/openapi.yaml
+```
+
+### Architect Agent — API Review
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/architect-agent.md for your full identity and standards.
+Also read ~/.sde-plugin/context/api-standards.md
+
+Your task: Review the API design for architectural consistency.
+
+Wait for the Backend Agent to save .sde/schemas/openapi.yaml, then review it for:
+1. REST convention violations
+2. Inconsistent naming
+3. Missing endpoints based on the PRD requirements
+4. Security gaps (unprotected endpoints)
+5. Versioning correctness
+
+Report findings to be merged into the final API spec.
+```
+
+---
+
 # SDE API — Phase 5: API Design
 
 ## Pre-Flight

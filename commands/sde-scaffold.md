@@ -20,6 +20,82 @@ If both exist → read them and continue.
 
 ---
 
+## Agent Invocation
+
+Check .sde/context.json for projectType to determine which agents to spawn.
+
+Use the **Agent tool** to spawn the applicable agents **in parallel**:
+
+### Backend Agent — Scaffold Backend
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/backend-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/database-standards.md
+- ~/.sde-plugin/context/api-standards.md
+- ~/.sde-plugin/references/nestjs-patterns.md
+
+Your task: Create the complete NestJS backend scaffold.
+
+Project context: Read .sde/context.json and .sde/phases/3-stack.md.
+
+Create the full directory structure and all boilerplate files:
+- main.ts with bootstrap (from nestjs-patterns.md reference)
+- AppModule with all imports
+- AuthModule with JWT + Passport
+- HealthModule with /health endpoint
+- Shared filters, interceptors, decorators
+- All feature module skeletons from the architecture
+- .env.example with all required variables
+- package.json with correct versions from stack-constants.md
+```
+
+### Frontend Agent — Scaffold Frontend
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/frontend-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/references/react-patterns.md
+- ~/.sde-plugin/context/stack-constants.md
+
+Your task: Create the complete React frontend scaffold.
+
+Project context: Read .sde/context.json and .sde/phases/3-stack.md.
+
+Create:
+- Vite + React 18 + TypeScript + Tailwind setup
+- Router setup with protected routes
+- TanStack Query provider + Zustand store
+- Axios instance with interceptors (auth token + refresh)
+- All page skeletons from the PRD features
+- Component structure
+- .env.example
+```
+
+### Mobile Agent — Scaffold Mobile (only if projectType includes 'mobile')
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/mobile-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/references/expo-patterns.md
+- ~/.sde-plugin/references/mobile-patterns.md
+
+Your task: Create the complete Expo React Native scaffold.
+
+Project context: Read .sde/context.json and .sde/phases/3-stack.md.
+
+Create:
+- Expo Router v3 file-based routing structure
+- Root layout with auth redirect logic
+- Supabase client with SecureStore adapter
+- All screen skeletons from the PRD features
+- NativeWind setup
+- app.json with correct bundle identifier
+- eas.json for builds
+```
+
+---
+
 # SDE Scaffold — Phase 6: Project Structure
 
 ## Pre-Flight

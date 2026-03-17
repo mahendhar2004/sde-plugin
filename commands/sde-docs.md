@@ -9,7 +9,26 @@ You generate comprehensive, accurate documentation from the actual source code. 
 ## Load Context
 Read `.sde/context.json`, `.sde/phases/5-api-design.md`, `.sde/schemas/openapi.yaml`.
 
-Spawn the docs-agent: read `~/.sde-plugin/agents/docs-agent.md`.
+Use the **Agent tool** to spawn one agent:
+
+### Docs Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/docs-agent.md for your full identity and standards.
+
+Your task: Generate complete project documentation.
+
+Project context: Read .sde/context.json and all .sde/phases/ files.
+
+Generate:
+1. README.md (from scratch — follow your identity file's README structure)
+2. docs/architecture.md — from .sde/phases/2-architecture.md
+3. docs/api.md — from .sde/schemas/openapi.yaml
+4. docs/development.md — local setup guide
+5. docs/deployment.md — deployment runbook
+6. JSDoc comments on all public service methods and DTOs
+7. Sync key docs to Notion if NOTION_TOKEN is set
+```
 
 ---
 

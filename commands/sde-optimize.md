@@ -17,6 +17,46 @@ If it exists → read it and use it to inform the optimization work.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn these agents **in parallel**:
+
+### Backend Agent — Performance Optimization
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/backend-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/performance-standards.md
+- ~/.sde-plugin/context/database-standards.md
+
+Your task: Find and fix all backend performance issues.
+
+Scan the codebase for:
+1. N+1 queries — add eager loading or query optimization
+2. Missing Redis caching — add cache for expensive queries (use TTLs from performance-standards.md)
+3. Missing database indexes — add for all query patterns
+4. Unoptimized queries — run EXPLAIN ANALYZE mentally, add composite indexes
+5. Paginated endpoints missing LIMIT — add default limit of 20, max 100
+```
+
+### Frontend Agent — Bundle & Render Optimization
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/frontend-agent.md for your full identity and standards.
+Also read ~/.sde-plugin/context/performance-standards.md
+
+Your task: Optimize frontend performance to meet Core Web Vitals targets.
+
+Fix:
+1. Add React.lazy + Suspense at every route (code splitting)
+2. All images: lazy loading + correct dimensions + WebP
+3. Lists > 50 items: add @tanstack/react-virtual
+4. Any useEffect data fetching: convert to React Query with staleTime
+5. Check bundle size — target < 200KB gzipped initial JS
+```
+
+---
+
 # SDE Optimize — Phase 10: Performance Optimization
 
 ## Pre-Flight

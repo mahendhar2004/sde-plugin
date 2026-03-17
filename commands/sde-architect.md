@@ -21,6 +21,35 @@ If all three exist → read them and continue.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn one agent:
+
+### Architect Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/architect-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/api-standards.md
+- ~/.sde-plugin/references/adr-template.md
+
+Your task: Design the complete system architecture for this project.
+
+Project context: Read .sde/context.json, .sde/phases/0-idea.md, and .sde/phases/1-prd.md.
+
+Produce:
+1. Architecture overview with ASCII diagram
+2. Component breakdown with responsibilities
+3. ADR (Architecture Decision Record) for key decisions — use the adr-template
+4. Data flow diagrams for critical paths
+5. Failure mode analysis for each component
+6. Technology decisions with justifications
+
+Save architecture to .sde/phases/2-architecture.md and ADRs to .sde/adr/.
+```
+
+---
+
 # SDE Architect — Phase 2: System Architecture
 
 ## Pre-Flight

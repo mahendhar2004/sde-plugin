@@ -46,6 +46,42 @@ Print detected backend type before proceeding.
 
 ---
 
+## Agent Invocation
+
+After detecting backend type in Phase 1, use the **Agent tool** to spawn:
+
+**If SUPABASE backend detected:**
+
+### Supabase Agent — Contract Audit
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/supabase-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/supabase-standards.md
+- ~/.sde-plugin/references/supabase-patterns.md
+
+Your task: Perform a complete Supabase contract sync audit.
+
+Scan the database schema (from supabase/migrations/ or types/supabase.ts) and all client code.
+Check all 14 contract dimensions defined in this command.
+Produce the sync report with exact file:line locations for every issue.
+```
+
+**If REST backend detected:**
+
+### Backend Agent — Contract Audit
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/backend-agent.md for your full identity and standards.
+Also read ~/.sde-plugin/context/api-standards.md
+
+Your task: Extract the complete REST API contract from the backend and cross-reference with all clients.
+Check all 10 mismatch dimensions defined in this command.
+Produce the sync report with exact file:line locations for every issue.
+```
+
+---
+
 # ═══════════════════════════════════════════════
 # SUPABASE MODE
 # (runs when backend is Supabase)

@@ -19,6 +19,33 @@ If it exists → read it and continue.
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn one agent:
+
+### QA Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/qa-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/testing-standards.md
+
+Your task: Write comprehensive tests achieving 80%+ coverage.
+
+Project context: Read .sde/context.json. Scan the src/ directory to understand what exists.
+
+Write:
+1. Unit tests for all services (Jest, AAA pattern, factory pattern)
+2. Integration tests for all API endpoints (Supertest with real DB)
+3. Component tests for React components (RTL)
+4. E2E test stubs (Detox for mobile if applicable)
+5. Test factories for all entities
+6. Ensure coverage thresholds from testing-standards.md are met
+7. Run tests and fix any failures before finishing
+```
+
+---
+
 # SDE Test — Phase 8: Testing
 
 ## Pre-Flight

@@ -28,6 +28,38 @@ If `.sde/context.json` exists AND either `.sde/phases/6-scaffold.md` or `src/` i
 
 ---
 
+## Agent Invocation
+
+Use the **Agent tool** to spawn one agent:
+
+### DevOps Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/devops-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/observability-standards.md
+- ~/.sde-plugin/context/performance-standards.md
+
+Your task: Set up complete CI/CD, Docker, and AWS infrastructure.
+
+Project context: Read .sde/context.json and .sde/phases/3-stack.md.
+
+Create:
+1. Dockerfile for each service (multi-stage, non-root user, dumb-init)
+   - Use templates from ~/.sde-plugin/templates/docker/
+2. docker-compose.yml for local dev
+3. GitHub Actions CI workflow (lint + typecheck + test + build)
+   - Use template from ~/.sde-plugin/templates/github-actions/ci.yml
+4. GitHub Actions CD workflow (build → ECR push → EC2 SSH deploy)
+   - Use template from ~/.sde-plugin/templates/github-actions/cd-prod.yml
+5. Security audit workflow (daily npm audit + secret scanning)
+6. Grafana Cloud free tier setup instructions
+7. Sentry free tier setup in application code
+8. All GitHub Actions secrets list with instructions
+```
+
+---
+
 # SDE DevOps — Phase 11: DevOps & Deployment
 
 ## Pre-Flight

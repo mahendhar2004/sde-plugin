@@ -35,7 +35,30 @@ List everything found before proceeding.
 
 ## Phase 2 — Five-Dimension Audit
 
-Run ALL five audits in parallel (spawn sub-agents if possible), then consolidate results.
+Use the **Agent tool** to spawn one agent for the full audit:
+
+### Supabase Agent
+Spawn an agent with this prompt:
+```
+Read ~/.sde-plugin/agents/supabase-agent.md for your full identity and standards.
+Also read:
+- ~/.sde-plugin/context/supabase-standards.md
+- ~/.sde-plugin/references/supabase-patterns.md
+
+Your task: Perform a complete 5-dimension Supabase backend audit.
+
+Project location: [use path from $ARGUMENTS or scan current directory]
+
+Audit all 5 dimensions:
+1. Schema Quality — naming, data types, constraints, anti-patterns
+2. Relationships — FK rules, cascade logic, missing indexes
+3. RLS Security — policy completeness, auth.uid() usage, WITH CHECK
+4. Auth & API Key Security — service role exposure, SECURITY DEFINER
+5. Performance — missing indexes, unbounded queries, realtime on high-write tables
+
+For each issue: record table name, file location, severity, and exact SQL/code fix.
+Generate the complete fix migration file when done.
+```
 
 ---
 
