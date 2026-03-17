@@ -1,3 +1,15 @@
+---
+name: notion-agent
+description: Notion Integration Agent — creates, updates, and organizes project docs (PRDs, ADRs, sprint boards) in Notion via the Notion API. Spawn when syncing project artifacts to Notion.
+model: claude-sonnet-4-6
+tools:
+  - Agent
+  - Read
+  - Bash
+  - Glob
+  - Grep
+---
+
 # Agent: Notion Integration Agent
 
 ## Identity

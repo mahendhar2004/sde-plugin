@@ -8,10 +8,11 @@ set -euo pipefail
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMMANDS_DIR="$HOME/.claude/commands"
+AGENTS_DIR="$HOME/.claude/agents"
 
 echo "╔══════════════════════════════════════════╗"
-echo "║  SDE Plugin Installer v2.2               ║"
-echo "║  30 Commands · ~/.claude/commands/        ║"
+echo "║  SDE Plugin Installer v2.3               ║"
+echo "║  30 Commands · 13 Agents                 ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 
@@ -38,7 +39,24 @@ done
 echo "✓ Symlinked $LINKED commands → $COMMANDS_DIR/"
 echo ""
 
-# ── Step 3: Initialize learnings store ────────────────────────────────────────
+# ── Step 3: Symlink agents to ~/.claude/agents/ ───────────────────────────────
+mkdir -p "$AGENTS_DIR"
+
+AGENTS_LINKED=0
+for agent_file in "$PLUGIN_DIR/agents"/*.md; do
+  agent_name="$(basename "$agent_file")"
+  target="$AGENTS_DIR/$agent_name"
+  if [ -L "$target" ]; then
+    rm "$target"
+  fi
+  ln -sf "$agent_file" "$target"
+  AGENTS_LINKED=$((AGENTS_LINKED + 1))
+done
+
+echo "✓ Symlinked $AGENTS_LINKED agents → $AGENTS_DIR/"
+echo ""
+
+# ── Step 5: Initialize learnings store ────────────────────────────────────────
 mkdir -p "$HOME/.sde-plugin-data/learnings"
 if [ ! -f "$HOME/.sde-plugin-data/learnings/user-preferences.json" ]; then
   echo '{}' > "$HOME/.sde-plugin-data/learnings/user-preferences.json"
@@ -48,7 +66,7 @@ if [ ! -f "$HOME/.sde-plugin-data/learnings/user-preferences.json" ]; then
   echo "✓ Learnings store initialized: ~/.sde-plugin-data/learnings/"
 fi
 
-# ── Step 4: Create ~/.sde-plugin symlink (agents reference this path) ────────
+# ── Step 6: Create ~/.sde-plugin symlink (agents reference this path) ────────
 if [ -L "$HOME/.sde-plugin" ]; then
   rm "$HOME/.sde-plugin"
 fi
@@ -56,18 +74,19 @@ ln -sf "$PLUGIN_DIR" "$HOME/.sde-plugin"
 echo "✓ Symlinked ~/.sde-plugin → $PLUGIN_DIR"
 echo ""
 
-# ── Step 5: Clean up old skills symlinks if they exist ───────────────────────
+# ── Step 7: Clean up old skills symlinks if they exist ───────────────────────
 if ls "$HOME/.claude/skills/sde"*.md 2>/dev/null | grep -q .; then
   rm -f "$HOME/.claude/skills/sde"*.md
   echo "✓ Removed old skills/ symlinks"
 fi
 
-# ── Step 6: Verify ────────────────────────────────────────────────────────────
+# ── Step 8: Verify ────────────────────────────────────────────────────────────
 echo ""
 COMMAND_COUNT=$(ls "$COMMANDS_DIR"/sde*.md 2>/dev/null | wc -l | tr -d ' ')
+AGENT_COUNT=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | wc -l | tr -d ' ')
 echo "────────────────────────────────────────────"
 printf "  Commands:   %s symlinks in ~/.claude/commands/\n" "$COMMAND_COUNT"
-printf "  Agents:     %s files\n" "$(ls "$PLUGIN_DIR/agents"/*.md 2>/dev/null | wc -l | tr -d ' ')"
+printf "  Agents:     %s symlinks in ~/.claude/agents/\n" "$AGENT_COUNT"
 printf "  Context:    %s files\n" "$(ls "$PLUGIN_DIR/context"/*.md 2>/dev/null | wc -l | tr -d ' ')"
 printf "  References: %s files\n" "$(ls "$PLUGIN_DIR/references"/*.md 2>/dev/null | wc -l | tr -d ' ')"
 echo "────────────────────────────────────────────"
@@ -79,6 +98,7 @@ echo "║  Installation Complete!                            ║"
 echo "╠════════════════════════════════════════════════════╣"
 echo "║                                                    ║"
 echo "║  Commands installed to: ~/.claude/commands/        ║"
+echo "║  Agents installed to:   ~/.claude/agents/          ║"
 echo "║  Plugin source:  ~/Documents/sde-plugin/           ║"
 echo "║  Learnings:      ~/.sde-plugin-data/               ║"
 echo "║                                                    ║"
