@@ -1,5 +1,5 @@
 ---
-description: Command reference — shows all 28 SDE Plugin skills organized by category with descriptions and usage examples
+description: Command reference — shows all 30 SDE Plugin commands organized by category with descriptions and usage examples
 allowed-tools: Read
 disable-model-invocation: true
 ---
@@ -54,7 +54,9 @@ Output exactly this:
   /sde-vc         → Smart commits, branches, PRs, releases
 
 ── EXISTING CODEBASES ───────────────────────────────────────────────
-  /sde-analyze    → Full audit: stack detection, issues, improvement plan
+  /sde-analyze          → Full audit: stack detection, issues, improvement plan
+  /sde-supabase-review  → Audit Supabase schema, RLS policies, and security
+  /sde-api-sync         → Check backend/frontend API contract sync
 
 ── LEARNING & STANDARDS ─────────────────────────────────────────────
   /sde-learn      → Your personalized learning profile (gets smarter over time)
