@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "installedAt": "2026-03-17T00:00:00.000Z",
+  "defaultStack": {
+    "backend": "nestjs", "frontend": "react", "database": "postgresql",
+    "cache": "redis", "mobile": "expo", "auth": "jwt-passport"
+  },
+  "integrations": {
+    "github": "authenticated",
+    "notion": "connected",
+    "sentry": "missing",
+    "grafana": "missing",
+    "docker": "not-running"
+  },
+  "aws": {"region": "us-east-1", "ec2Type": "t2.micro", "rdsEngine": "postgres", "rdsVersion": "16"},
+  "coverage": {"minimum": 80},
+  "autonomy": "full"
+}
